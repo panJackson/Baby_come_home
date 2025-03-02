@@ -183,8 +183,54 @@ export const Donate = () => {
               </form>
             </div>
           </div>
+
+          {/* Recent Donations */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <div className="bg-[#4A90E2] py-4 px-6">
+                <h2 className="text-xl font-bold text-white">近期捐款</h2>
+              </div>
+              <div className="p-6 max-h-[400px] overflow-y-auto hide-scrollbar">
+                {recentDonations.map((donation) => (
+                  <div key={donation.date} className="mb-4">
+                    <div className="flex justify-between items-center">
+                      <span className="font-medium text-gray-800">{donation.name}</span>
+                      <span className="text-[#F5A623] font-medium">¥{donation.amount}</span>
+                    </div>
+                    <p className="text-sm text-gray-600 mt-1">{donation.message}</p>
+                    <p className="text-xs text-gray-400 mt-1">{donation.date}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      
+      {/* Thank You Modal */}
+      {showThankYouModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <Heart className="h-12 w-12 text-[#F5A623] mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">感谢您的捐款！</h2>
+            <p className="text-gray-600 text-center mb-6">
+              您捐款的 ¥{donationAmount || customAmount} 已成功提交，我们将把您的爱心传递给需要帮助的人。
+            </p>
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={() => setShowThankYouModal(false)}
+                className="px-6 py-2 bg-[#F5A623] text-white rounded-md hover:bg-[#F5A623]/90"
+              >
+                关闭
+              </button>
+              <button className="px-6 py-2 border border-[#4A90E2] text-[#4A90E2] rounded-md hover:bg-[#4A90E2]/10 flex items-center">
+                <Share2 className="h-5 w-5 mr-2" />
+                分享
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
